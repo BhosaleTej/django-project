@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block start %}
+    <!-- <h1>This template is receipe page</h1> -->
+
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>update Receipe</h2>
+        <hr>
+        <div>
+          <label for="exampleInputEmail1" class="form-label">Receipe name</label>
+          <input name = 'receipe_name' value = "{{receipe.receipe_name}}"required type="text" class="form-control">
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Receipe description</label>
+          <textarea class="form-control" value="" name='receipe_desc' required>{{receipe.receipe_desc}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Receipe Image</label>
+            <input name='receipe_image' type="file" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Receipe</button>
+      </form>
+
+      <!-- {{receipes}} -->
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Receipe_name</th>
+            <th scope="col">Receipe Desc</th>
+            <th scope="col">Image</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for receipe in receipes %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{receipe.receipe_name}}</td>
+            <td>{{receipe.receipe_desc}}</td>
+            <!-- <td>{{receipe.receipe_image}}</td> -->
+             <td>
+                <img src="/media/{{receipe.receipe_image}}" style="height : 200px">
+             </td>
+             <td>
+                <a href="/delete-receipe/{{receipe.id}}/" class="btn btn-danger">Delete</a>
+             </td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}
