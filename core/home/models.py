@@ -1,4 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User  
+# for inbuild models usage.
+
+from django.contrib.auth.models import AbstractUser
+# for creating custom models.
+
+from .manager import UserManager
 
 # Create your models here.
 
@@ -18,3 +25,16 @@ class Car(models.Model):
         return self.car_name
 
 
+
+
+class customuser(AbstractUser):
+
+    username = None
+    phone_no = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(unique=True)
+    user_bio = models.CharField(max_length=50)
+    user_profile_image = models.ImageField(upload_to='profile')
+
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = []
+    objects = UserManager()
